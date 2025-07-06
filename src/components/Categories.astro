@@ -1,0 +1,20 @@
+---
+import { getAllArticales } from "../scripts/articale";
+
+const [_, uniqueCategories, __] = await getAllArticales();
+---
+
+<div class="flex overflow-x-auto px-4 w-full">
+    {
+        uniqueCategories.map((categorie) => (
+            <a href={`/categories/${categorie}`} class=" mr-2.5 font-medium">
+                <p
+                    class="categorie border-2 border-gray-300 dark:border-gray-600 rounded-full py-1.5 px-4 whitespace-nowrap
+                        hover:bg-theme-4 hover:text-white  dark:hover:bg-green-700/90 dark:hover:text-black transition-colors duration-200"
+                >
+                    {categorie}
+                </p>
+            </a>
+        ))
+    }
+</div>

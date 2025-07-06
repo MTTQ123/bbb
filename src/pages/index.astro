@@ -1,10 +1,29 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import '../styles/global.css';
-const pageTitle = "首页";
+
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import  { index_title,index_description } from "../scripts/globalVar";
+
+
+
 
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-  	<h2>我超棒的博客副标题</h2>
+<BaseLayout pageTitle={"首页"}>
+        <!-- 首页标题和描述 -->
+
+	<div
+			class="text-center pt-24 pb-12 bg-gradient-to-b from-green-100/80 via-white to-transparent dark:from-green-950/40 dark:via-[#1f1f1f]"
+		>
+			<h1
+				class="text-5xl font-semibold text-green-700 dark:text-green-300 tracking-wide"
+			>
+				{index_title}
+			</h1>
+			<p class="mt-6 text-xl text-gray-600 dark:text-gray-400 italic">
+				{index_description}
+			</p>
+		</div>
 </BaseLayout>
+

@@ -1,8 +1,15 @@
 ---
+import { babelList } from "../scripts/globalVar";
 ---
-<div class="nav-links">
-  <a href="/">首页</a>
-  <a href="/about/">关于</a>
-  <a href="/blog/">博客</a>
-  <a href="/tags/">标签</a>
+
+<div class="items-center gap-6 hidden md:flex">
+  {
+    Object.entries(babelList).map(([name, link]) => {
+      return (
+        <a href={link} class="hover:text-theme-6 ">
+          {name}
+        </a>
+      );
+    })
+  }
 </div>

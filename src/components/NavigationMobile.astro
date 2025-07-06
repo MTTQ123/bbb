@@ -1,0 +1,13 @@
+---
+import { babelList } from '../scripts/globalVar';
+
+---
+<div class="py-1 flex flex-col items-center rounded-b-xl shadow-xl bg-gray-1/99 dark:bg-gray-9/99 ">
+  {
+  Object.entries(babelList).map(([name, link]) => (
+    <a href={link} class="mb-1 p-2 w-14/15 text-center hover:bg-theme-2 hover:text-theme-6 dark:hover:bg-theme-8 rounded-lg transition-colors text-accent">
+      <span class="">{name}</span>
+    </a>
+  ))
+  }
+</div>

@@ -1,10 +1,11 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
-const {pageTitle} = Astro.props;
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+const { pageTitle } = Astro.props;
 ---
-<html lang="zh-CN">
+
+<html lang="zh-CN" class="h-full">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -12,13 +13,16 @@ const {pageTitle} = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
   </head>
-  <body>
+  <body
+    class="min-h-screen flex flex-col bg-gray-1 text-gray-5 dark:bg-gray-9 dark:text-gray-3"
+  >
+    <div class="water"></div>
+    <div class="water"></div>
+    <div class="droplet"></div>
     <Header />
-    <h1>{pageTitle}</h1>
-    <slot />
+    <main class="flex-grow">
+      <slot />
+    </main>
     <Footer />
-    <script>
-      import "../scripts/menu.js";
-    </script>
   </body>
 </html>

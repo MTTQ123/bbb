@@ -5,26 +5,27 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getAllArticales } from "../../scripts/articale";
 
 export async function getStaticPaths() {
-    const [allPosts ,_,uniqueTags] = await getAllArticales();
 
-    return uniqueTags.map((tag) => {
+    const [allPosts ,uniqueCategories,_] = await getAllArticales();
+
+    return uniqueCategories.map((categorie) => {
         const filteredPosts = allPosts.filter((post: any) =>
-            post.data.tags.includes(tag),
+            post.collection==categorie,
         );
         return {
-            params: { tag },
+            params: { categorie },
             props: { posts: filteredPosts },
         };
     });
 }
 
-const { tag } = Astro.params;
+const { categorie } = Astro.params;
 const { posts } = Astro.props;
 
 ---
 
-<BaseLayout pageTitle={tag}>
-    <p>包含「{tag}」标签的文章</p>
+<BaseLayout pageTitle={categorie}>
+    <p class="">分类「{categorie}」</p>
     <ul>
         {
             posts.map((post: any) => (

@@ -1,0 +1,91 @@
+---
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+}
+const { currentPage, totalPages, baseUrl } = Astro.props;
+---
+
+<div class="flex justify-between items-center px-4 text-sm">
+  <div>
+    <span>第&nbsp;{currentPage}&nbsp;页</span>
+    /
+    <span>共&nbsp;{totalPages}&nbsp;页</span>
+  </div>
+
+  <div class="flex justify-center items-center gap-2" aria-label="分页导航">
+    <!-- 上一页-笑脸 -->
+    <a href="#" class="text-gray-500 transition-colors">
+      <svg
+        class=`icon w-4 h-4 ${currentPage === 1 ? "hidden":""}`
+        viewBox="0 0 1024 1024"
+        fill="currentColor"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="1808"
+        ><path
+          d="M512 64c247.136 0 448 200.864 448 448s-200.864 448-448 448S64 759.136 64 512 264.864 64 512 64z m0 832c211.968 0 384-172.032 384-384S723.968 128 512 128 128 300.032 128 512s172.032 384 384 384z m96-480a64 64 0 1 1 128 0 64 64 0 0 1-128 0zM288 416a64 64 0 1 1 128 0 64 64 0 0 1-128 0z m407.68 170.848c17.184 11.2 22.4 34.336 11.2 51.52A229.44 229.44 0 0 1 512 745.152a229.44 229.44 0 0 1-194.88-106.784 37.408 37.408 0 0 1 11.2-51.52 37.408 37.408 0 0 1 51.52 11.2A155.904 155.904 0 0 0 512 670.464c53.76 0 103.04-26.88 132.16-72.416 11.2-17.184 34.336-22.4 51.52-11.2z"
+          p-id="1809"></path></svg
+      >
+    </a>
+    <!-- 上一页-哭脸 -->
+    <a
+      href="#"
+      class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+    >
+      <svg
+        class=`icon w-4 h-4 ${currentPage != 1 ? "hidden":""} text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors`
+        viewBox="0 0 1024 1024"
+        fill="currentColor"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="1955"
+        ><path
+          d="M512 64c247.136 0 448 200.864 448 448s-200.864 448-448 448S64 759.136 64 512 264.864 64 512 64z m0 832c211.968 0 384-172.032 384-384S723.968 128 512 128 128 300.032 128 512s172.032 384 384 384z m96-480a64 64 0 1 1 128 0 64 64 0 0 1-128 0zM288 416a64 64 0 1 1 128 0 64 64 0 0 1-128 0z m407.68 323.2c-17.184 11.2-40.32 5.984-51.52-11.2A155.904 155.904 0 0 0 512 655.616c-53.76 0-103.04 26.88-132.16 72.448-11.2 17.152-34.336 22.4-51.52 11.2a37.408 37.408 0 0 1-11.2-51.52A229.44 229.44 0 0 1 512 580.928a229.44 229.44 0 0 1 194.88 106.784c11.2 17.152 5.984 40.32-11.2 51.52z"
+          p-id="1956"></path></svg
+      >
+    </a>
+    <a
+      href={`${baseUrl}${currentPage - 1}`}
+      class={`pr-3 py-1 hover:text-theme-6 ${currentPage === 1 ? "pointer-events-none cursor-default opacity-80" : ""}`}
+    >
+      上一页
+    </a>
+
+    <!-- 下一页-笑脸 -->
+    <a href="#" class="text-gray-500 transition-colors">
+      <svg
+        class=`icon w-4 h-4 ${currentPage === totalPages ?"hidden":""}`
+        viewBox="0 0 1024 1024"
+        fill="currentColor"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="1808"
+        ><path
+          d="M512 64c247.136 0 448 200.864 448 448s-200.864 448-448 448S64 759.136 64 512 264.864 64 512 64z m0 832c211.968 0 384-172.032 384-384S723.968 128 512 128 128 300.032 128 512s172.032 384 384 384z m96-480a64 64 0 1 1 128 0 64 64 0 0 1-128 0zM288 416a64 64 0 1 1 128 0 64 64 0 0 1-128 0z m407.68 170.848c17.184 11.2 22.4 34.336 11.2 51.52A229.44 229.44 0 0 1 512 745.152a229.44 229.44 0 0 1-194.88-106.784 37.408 37.408 0 0 1 11.2-51.52 37.408 37.408 0 0 1 51.52 11.2A155.904 155.904 0 0 0 512 670.464c53.76 0 103.04-26.88 132.16-72.416 11.2-17.184 34.336-22.4 51.52-11.2z"
+          p-id="1809"></path></svg
+      >
+    </a>
+    <!-- 下一页-哭脸 -->
+    <a href="#" class="text-gray-500 transition-colors">
+      <svg
+        class=`icon w-4 h-4 ${ currentPage != totalPages ?"hidden":""}`
+        viewBox="0 0 1024 1024"
+        fill="currentColor"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="1955"
+        ><path
+          d="M512 64c247.136 0 448 200.864 448 448s-200.864 448-448 448S64 759.136 64 512 264.864 64 512 64z m0 832c211.968 0 384-172.032 384-384S723.968 128 512 128 128 300.032 128 512s172.032 384 384 384z m96-480a64 64 0 1 1 128 0 64 64 0 0 1-128 0zM288 416a64 64 0 1 1 128 0 64 64 0 0 1-128 0z m407.68 323.2c-17.184 11.2-40.32 5.984-51.52-11.2A155.904 155.904 0 0 0 512 655.616c-53.76 0-103.04 26.88-132.16 72.448-11.2 17.152-34.336 22.4-51.52 11.2a37.408 37.408 0 0 1-11.2-51.52A229.44 229.44 0 0 1 512 580.928a229.44 229.44 0 0 1 194.88 106.784c11.2 17.152 5.984 40.32-11.2 51.52z"
+          p-id="1956"></path></svg
+      >
+    </a>
+    <a
+      href={`${baseUrl}${currentPage + 1}`}
+      class={`pr-3 py-1W hover:text-theme-6 ${currentPage === totalPages ? "pointer-events-none cursor-default opacity-80" : ""}`}
+    >
+      下一页
+    </a>
+  </div>
+</div>

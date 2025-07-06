@@ -1,7 +1,14 @@
 ---
 ---
-<div class="hamburger">
-  <span class="line"></span>
-  <span class="line"></span>
-  <span class="line"></span>
+<div class="hamburger md:hidden cursor-pointer">
+  <span class="block w-[26px] h-[2px] mb-[6px] bg-gray-5  dark:bg-gray-3"></span>
+  <span class="block w-[26px] h-[2px] mb-[6px] bg-gray-5  dark:bg-gray-3"></span>
+  <span class="block w-[26px] h-[2px]  bg-gray-5  dark:bg-gray-3"></span>
 </div>
+
+<script is:inline>
+  document.querySelector('.hamburger').addEventListener('click', () => {
+  document.querySelector('.nav-links').classList.toggle('scale-y-0');
+  document.querySelector('.nav-links').classList.toggle('opacity-0');
+});
+</script>
