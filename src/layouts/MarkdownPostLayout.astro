@@ -1,36 +1,76 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-const { frontmatter } = Astro.props;
+import TOCItem from "../components/TOCItem.astro";
+import BaseLayout from "./BaseLayout.astro";
+const { frontmatter, grouppedHeadings } = Astro.props;
 ---
+
 <BaseLayout pageTitle={frontmatter.title}>
-  <p>{frontmatter.pubDate.toString().slice(0,10)}</p>
-  <p><em>{frontmatter.description}</em></p>
-  <p>作者：{frontmatter.author}</p>
-  <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
-  <div class="tags">
-    {frontmatter.tags.map((tag: string) => (
-      <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
-    ))}
+  <div class="mx-auto px-4 max-w-4xl flex justify-center 
+              xlg:px-0 xlg:max-w-full xlg:grid xlg:grid-cols-5 gap-2">
+    <div class="mt-4 px-4 py-8 xlg:col-start-2 xlg:col-span-3 max-w-full prose dark:prose-invert bg-white dark:bg-[#2b2b2b] rounded-lg">
+      <slot />
+    </div>
+    <div class="ml-3 hidden xlg:block rounded-lg sticky top-20 h-fit">
+      <p class="mb-1 text-lg font-bold ">文章目录:</p>
+      <ul class="space-y-1">
+        {grouppedHeadings.map((heading) => <TOCItem heading={heading} />)}
+      </ul>
+    </div>
   </div>
-  <slot />
 </BaseLayout>
 
 <style>
-  a {
-    color: #00539F;
-  }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .tag {
-    margin: 0.25em;
-    border: dotted 1px #a1a1a1;
-    border-radius: .5em;
-    padding: .5em 1em;
-    font-size: 1.15em;
-    background-color: #F8FCFD;
+  .active {
+    color: red;
+    font-weight: 600;
   }
 </style>
+<script>
+  // 获取目录每一元素以及对应的正文元素
+  const toc = [...document.querySelectorAll(".card-toc")].map((a) => {
+    const target = document.querySelector(`[id="${a.getAttribute("href")}"]`);
+    return {
+      link: a,
+      target: target,
+    };
+  });
+
+  // 为每个目录链接添加点击事件，点击后平滑滚动到对应的正文元素
+  toc.forEach(({ link, target }) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({ top: target.offsetTop - 72, behavior: "smooth" });
+      
+      
+    });
+  });
+
+  // 监听页面滚动事件，根据滚动位置高亮对应的目录链接
+  let ticking = false;
+  let lastActiveLink = null;
+  window.addEventListener("scroll", function () {
+    if (!ticking) {
+      window.requestAnimationFrame(function () {
+        toc.forEach(({ link, target: tocTarget }) => {
+          const { offsetTop: top } = tocTarget;
+          if (window.scrollY >= top - 72) {
+            toc.forEach(({ link: otherLink }) =>
+              otherLink.classList.remove("active"),
+            );
+            link.classList.add("active");
+          }
+        });
+
+        ticking = false;
+      });
+
+      ticking = true;
+    }
+  });
+
+  // 初始化时高亮第一个目录链接
+  if (toc.length > 0 && !lastActiveLink) {
+    toc[0].link.classList.add("active");
+    lastActiveLink = toc[0].link;
+  }
+</script>

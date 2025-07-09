@@ -1,0 +1,27 @@
+---
+// src/components/TOCItem.astro
+const { heading } = Astro.props;
+---
+
+<li>
+  <a href=`${heading.slug}`
+    class={`card-toc block py-0.5 hover:text-theme-6 transition-colors text-sm
+           ${heading.depth === 2 ? 'font-medium text-gray-700 dark:text-gray-300' : 'text-gray-600 dark:text-gray-400 pl-4'}`}
+  >
+    {heading.text}
+    </a>
+  
+  {heading.subheadings && heading.subheadings.length > 0 && (
+    <ul class="space-y-1 border-l border-gray-300 dark:border-gray-700 ml-4">
+      {heading.subheadings.map((subheading) => (
+        <Astro.self heading={subheading} />
+      ))}
+    </ul>
+  )}
+</li>
+
+<style>
+ .active {
+   color: var(--color-theme-6);
+   font-weight: 600;
+ }

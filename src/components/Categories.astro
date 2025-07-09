@@ -9,8 +9,8 @@ const [_, uniqueCategories, __] = await getAllArticales();
         uniqueCategories.map((categorie) => (
             <a href={`/categories/${categorie}`} class=" mr-2.5 font-medium">
                 <p
-                    class="categorie border-2 border-gray-300 dark:border-gray-600 rounded-full py-1.5 px-4 whitespace-nowrap
-                        hover:bg-theme-4 hover:text-white  dark:hover:bg-green-700/90 dark:hover:text-black transition-colors duration-200"
+                    class="categorie border-2 rounded-full py-1 px-3 whitespace-nowrap
+                         text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors duration-200"
                 >
                     {categorie}
                 </p>

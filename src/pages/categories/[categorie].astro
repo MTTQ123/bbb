@@ -5,12 +5,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getAllArticales } from "../../scripts/articale";
 
 export async function getStaticPaths() {
-
-    const [allPosts ,uniqueCategories,_] = await getAllArticales();
+    const [allPosts, uniqueCategories, _] = await getAllArticales();
 
     return uniqueCategories.map((categorie) => {
-        const filteredPosts = allPosts.filter((post: any) =>
-            post.collection==categorie,
+        const filteredPosts = allPosts.filter(
+            (post: any) => post.collection == categorie,
         );
         return {
             params: { categorie },
@@ -21,16 +20,28 @@ export async function getStaticPaths() {
 
 const { categorie } = Astro.params;
 const { posts } = Astro.props;
-
 ---
 
 <BaseLayout pageTitle={categorie}>
-    <p class="">分类「{categorie}」</p>
-    <ul>
-        {
-            posts.map((post: any) => (
-                <BlogPost post={post} />
-            ))
-        }
-    </ul>
+    <div class="mx-auto px-4 max-w-4xl">
+        <div class="mt-12 flex justify-start items-center">
+            <svg
+                class="icon ml-8 w-10 h-10 text-theme-6"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="5371"
+                ><path
+                    d="M617.6 470.4h160c28.8 0 64-28.8 64-60.8V240c0-28.8-25.6-57.6-60.8-57.6h-166.4c-28.8 0-60.8 32-60.8 64v160c0 32 32 64 64 64z m16-179.2c0-12.8 12.8-25.6 25.6-25.6h73.6c12.8 0 25.6 12.8 25.6 28.8v67.2c0 12.8-12.8 28.8-28.8 28.8h-67.2c-12.8 0-28.8-12.8-28.8-25.6V291.2z m64 262.4c-76.8 0-144 60.8-144 144 0 76.8 67.2 144 147.2 144 76.8 0 144-67.2 140.8-144 0-80-64-144-144-144zM412.8 182.4H240c-28.8 0-57.6 25.6-57.6 57.6v169.6c0 28.8 32 60.8 64 60.8h160c28.8 0 64-32 64-64v-160c0-28.8-28.8-64-57.6-64z m-3.2 371.2H243.2c-28.8 0-60.8 32-60.8 64v160c0 28.8 32 64 64 64h160c28.8 0 64-28.8 64-60.8v-169.6c0-32-25.6-57.6-60.8-57.6z m-19.2 176c0 12.8-12.8 28.8-28.8 28.8H294.4c-12.8 0-28.8-12.8-28.8-25.6v-73.6c0-12.8 12.8-25.6 25.6-25.6h73.6c12.8 0 25.6 12.8 25.6 28.8v67.2z"
+                    p-id="5372"></path></svg
+            >
+            <span class="font-bold text-xl dark:text-gray-300"
+                >分类「{categorie}」</span
+            >
+        </div>
+        <div class="max-w-4xl px-4 grid gap-8 pt-4 pb-16">
+            {posts.map((post: any) => <BlogPost post={post} />)}
+        </div>
+    </div>
 </BaseLayout>

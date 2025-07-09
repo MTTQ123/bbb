@@ -1,0 +1,72 @@
+---
+// src/pages/archive.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getAllArticales } from "../scripts/articale";
+
+// 获取所有文章并按日期排序
+const [all_Posts] = await getAllArticales();
+const allPosts = all_Posts.sort(
+  (a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate)
+);
+
+// 按年份和月份组织文章
+const postsByYear = allPosts.reduce((acc, post) => {
+  const year = new Date(post.data.pubDate).getFullYear();
+  const month = new Date(post.data.pubDate).toLocaleString('default', { month: 'long' });
+  
+  if (!acc[year]) {
+    acc[year] = {};
+  }
+  
+  if (!acc[year][month]) {
+    acc[year][month] = [];
+  }
+  
+  acc[year][month].push(post);
+  return acc;
+}, {});
+
+const pageTitle = "文章归档";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="mx-auto max-w-4xl px-4 py-16">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">文章归档</h1>
+
+    {/* 归档列表 */}
+    <div class="space-y-8" id="archiveList">
+      {Object.entries(postsByYear).sort((a, b) => b[0] - a[0]).map(([year, months]) => (
+        <div class="year-section">
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center">
+            <span class="mr-2">{year}</span>
+            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+              ({allPosts.filter(post => new Date(post.data.pubDate).getFullYear() == year).length}篇)
+            </span>
+          </h2>
+          
+          {Object.entries(months).map(([month, posts]) => (
+            <div class="month-section mb-5">
+              <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">{month}</h3>
+              
+              <ul class="space-y-3">
+                {posts.map(post => (
+                  <li class="post-item">
+                    <a 
+                      href={`/posts/${post.id}`}
+                      class="flex justify-between items-center p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-theme-6 transition-colors"
+                    >
+                      <span class="text-gray-800 dark:text-gray-200">{post.data.title}</span>
+                      <span class="text-sm text-gray-500 dark:text-gray-400">
+                        {new Date(post.data.pubDate).toLocaleDateString('zh-CN')}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

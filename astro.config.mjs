@@ -10,5 +10,7 @@ export default defineConfig({
   },
   redirects: {
     "/": "/1",
+    "/categories/": "/1",
+    "/posts/":"/1",
   }
 });

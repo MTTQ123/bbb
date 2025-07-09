@@ -21,4 +21,13 @@ tags: ["astro", "blogging", "learning in public"]
 
  ## 下一步计划
 
- 我将完成 Astro 教程，然后继续编写更多内容。关注我以获取更多信息。
+# 嗨！
+
+这个 Markdown 文件在 `your-domain.com/page-1/` 创建了一个页面
+
+也许没有什么样式装点，但 Markdown 还支持这个：
+- **加粗** 和 _斜体。_
+- 列表项
+- [链接](https://astro.build)
+- <p>HTML 元素</p>
+- 还有更多！

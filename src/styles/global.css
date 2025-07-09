@@ -1,9 +1,11 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme{
   --breakpoint-xs: 30rem;
+  --breakpoint-xlg: 70rem;
 
   --color-theme-2:#a4cab6;
   --color-theme-4:#1ba784;
@@ -14,6 +16,18 @@
   --color-gray-5:#404040;
   --color-gray-7:#2b2b2b;
   --color-gray-9:#1d1f20;
+}
+
+@layer components{
+  .bg-grid{
+    background-image: linear-gradient(to right, #f3f4f6 1px, transparent 1px),
+                      linear-gradient(to bottom, #f3f4f6 1px, transparent 1px);
+
+    /* @variant dark {
+      background-image: linear-gradient(to right, #1f2937 1px, transparent 1px),
+                        linear-gradient(to bottom, #1f2937 1px, transparent 1px);
+    } */
+  }
 }
 
 body {
