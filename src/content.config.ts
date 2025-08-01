@@ -6,7 +6,7 @@ import { z, defineCollection } from "astro:content";
 
 // 为每个集合定义一个 `loader` 和 `schema`
 const testBlog = defineCollection({
-    loader: glob({ pattern: '**/[^_]*.md', base: "./src/assets/devTest" }),
+    loader: glob({ pattern: '**/[^_]*.md', base: "./src/content/devTest" }),
     schema: z.object({
       title: z.string(),
       pubDate: z.date(),
@@ -20,7 +20,7 @@ const testBlog = defineCollection({
     })
 });
 const testBlog2 = defineCollection({
-    loader: glob({ pattern: '**/[^_]*.md', base: "./src/assets/测试2" }),
+    loader: glob({ pattern: '**/[^_]*.md', base: "./src/content/测试2" }),
     schema: z.object({
       title: z.string(),
       pubDate: z.date(),
